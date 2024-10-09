@@ -34,7 +34,7 @@ public class ApiService
     public async Task<Comment> CreateComment(string content, int postId, int userId)
     {
         string url = $"{baseAPI}posts/{postId}/comments";
-     
+
         // Post JSON to API, save the HttpResponseMessage
         HttpResponseMessage msg = await http.PostAsJsonAsync(url, new { content, userId });
 
@@ -42,7 +42,8 @@ public class ApiService
         string json = msg.Content.ReadAsStringAsync().Result;
 
         // Deserialize the JSON string to a Comment object
-        Comment? newComment = JsonSerializer.Deserialize<Comment>(json, new JsonSerializerOptions {
+        Comment? newComment = JsonSerializer.Deserialize<Comment>(json, new JsonSerializerOptions
+        {
             PropertyNameCaseInsensitive = true // Ignore case when matching JSON properties to C# properties 
         });
 
@@ -56,7 +57,39 @@ public class ApiService
 
         // Post JSON to API, save the HttpResponseMessage
         HttpResponseMessage msg = await http.PutAsJsonAsync(url, "");
+        
+        return null;
+    }
+    
+    public async Task<Post> DownvotePost(int id)
+    {
+        string url = $"{baseAPI}posts/{id}/downvote/";
 
+        // Post JSON to API, save the HttpResponseMessage
+        HttpResponseMessage msg = await http.PutAsJsonAsync(url, "");
+
+        return null;
+    }
+    public async Task<Comment> UpvoteComment(int id, int commentId)
+    {
+        string url = $"{baseAPI}posts/{id}/comments/{commentId}/upvote/";
+
+        // Post JSON to API, save the HttpResponseMessage
+        HttpResponseMessage msg = await http.PutAsJsonAsync(url, "");
+
+        return null;
+    }
+    
+    public async Task<Comment> DownvoteComment(int id, int commentId)
+    {
+        string url = $"{baseAPI}posts/{id}/comments/{commentId}/downvote/";
+
+        // Post JSON to API, save the HttpResponseMessage
+        HttpResponseMessage msg = await http.PutAsJsonAsync(url, "");
+
+        return null;
+    }
+ /*
         // Get the JSON string from the response
         string json = msg.Content.ReadAsStringAsync().Result;
 
@@ -67,5 +100,7 @@ public class ApiService
 
         // Return the updated post (vote increased)
         return updatedPost;
-    }
+
+    }*/
+
 }
