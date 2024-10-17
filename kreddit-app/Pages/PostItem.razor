@@ -71,10 +71,14 @@ else
     private async void Upvote(int id, int commentId)
     {
         var updatedComment = await apiService.UpvoteComment(id, commentId);
+        Post = await apiService.GetPost(PostId);
+        StateHasChanged();
     }
 
     private async void Downvote(int id, int commentId)
     {
         var updatedComment = await apiService.DownvoteComment(id, commentId);
+        Post = await apiService.GetPost(PostId);
+        StateHasChanged();
     }
 }
